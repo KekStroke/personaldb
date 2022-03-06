@@ -1,5 +1,29 @@
 {
     "cSpell.enableFiletypes": [
         "xi"
+    ],
+    "cSpell.words": [
+        "Binarization",
+        "Ceph",
+        "CLDA",
+        "Cython",
+        "dataframe",
+        "Gensim",
+        "Kubeflow",
+        "maxval",
+        "microservices",
+        "mssim",
+        "ndarray",
+        "ndarrays",
+        "NLTK",
+        "Numpy",
+        "Otsu's",
+        "pystruct",
+        "Scipy",
+        "seqlearn",
+        "SSIM",
+        "statsmodel",
+        "Thresholding",
+        "TRUNC"
     ]
 }
