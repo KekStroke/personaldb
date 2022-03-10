@@ -17,13 +17,16 @@
         "ndarrays",
         "NLTK",
         "Numpy",
+        "opencv",
         "Otsu's",
         "pystruct",
+        "retval",
         "Scipy",
         "seqlearn",
         "SSIM",
         "statsmodel",
         "Thresholding",
+        "trackbar",
         "TRUNC"
     ]
 }

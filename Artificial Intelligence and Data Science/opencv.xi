@@ -18,8 +18,153 @@ Distribution .
 . [BSD license] and hence free for both academic and 
   commercial use.
 
+Tricks & Tips .
+. Better no display images with this sequence of operations
+  | cv2.imshow("Window Name", image)
+  | cv2.waitKey(0)
+  | cv2.destroyAllWindows
+
 Methods .
-  - cvtColor .
+
+  - imshow() .
+  . Used to display an image in a window.
+  . Window automatically fits to the image size.
+  ! Should be followed by a call to {cv.waitKey} or {cv.pollKey}
+    to perform GUI housekeeping tasks that are necessary to actually
+    show the given image and make the window respond to mouse and
+    keyboard events. Otherwise, `it won't display the image` and 
+    `the window might lock up`.
+    Parameters .
+    * {i(string) winname}
+      . name of the window.
+    * {i(ndarray) img}
+      . image to be shown.
+
+  - waitKey() .
+  . Waits for a pressed key.
+    Parameters .
+    * {i(int) delay = 0}
+      . Delay in milliseconds.
+      . 0 is the special value that means "forever".
+
+  - destroyAllWindows() .
+  . Destroy all the HighGUI windows.
+  ! No parameters.
+
+  . destroyWindow() .
+  . Destroys the specified window.
+    Parameters .
+    * {i(string) winname}
+      . name of the window to be destroyed
+
+  - createTrackBar() .
+  . Creates the progressbar and attaches it to the specified
+    window.
+    Parameters .
+    * {i(string) trackbarname}
+      . name of the created trackbar.
+    * {i(string) winname}
+      . name of the window that will be used as a parent of
+        the created trackbar.
+    * {i(int) thresh}
+      . initial threshold.
+    * {i(int) max_thresh}
+      . maximal position of the slider.
+    * {i(*void) callback = 0}
+      . pointer to the function to be called every time the slider
+        changes position.
+      . Callback functions are used to react to some kind of signal,
+        in our case it's trackbar's state change.
+      . All changes should happen in {callback} function that can be
+        called as.
+      | callback(thresh)
+
+  - getTrackBarPos() .
+  . Returns the current position of the specified trackbar.
+    Parameters .
+    * {i(string) trackbarname}
+      . name of the trackbar.
+    * {i(string) winname}
+      . name of the window that will be used as a parent of
+        the created trackbar.
+
+  - Canny() .
+  . Finds edges in an image using the [Canny edge detection] algorithm
+    with custom image gradient.
+  . The smallest value between {threshold1} and {threshold2} is used for edge
+    linking.
+  . The largest value between {threshold1} and {threshold2} is used to find
+    initial segments of strong edges.
+    Parameters .
+    * {i(ndarray) img}
+      . input image to which Canny filter will be applied.
+    * {i(double) threshold1}
+      . lower threshold value in Hysteresis Thresholding. 
+    * {i(double) threshold2}
+      . Upper threshold value in Hysteresis Thresholding.
+    * {i(int) apertureSize = 3}
+      . Aperture size of the Sobel filter used to calculate the gradient
+        in the Canny algorithm.
+      . This value should be odd between 3 and 7.
+      . Greater Aperture size helps to detect more detailed features.
+    * {i(bool) L2gradient = false}
+      . Used for more precision in calculating Edge Gradient
+    Returns .
+    * {o(ndarray) edges}
+       edges image.
+
+  - approxPolyDP() .
+  . approximates a polygonal curve(s) with the specified precision.
+    Parameters .
+    * {i(ndarray) curve}
+      . input vector of points.
+      . can be contour from [contours]
+    * {i(double) epsilon}
+      . specifies approximation accuracy.
+      . maximum distance between the original curve and its approximation.
+    * {i(bool) closed}
+      . If true, the approximated curve's first and last vertices are connected.
+    Returns .
+    * {i(ndarray) src}
+
+  - boundingRect() .
+  . Calculates the up-right bounding rectangle of a point set or 
+    `non-zero pixels of gray-scale image`.
+    Parameters .
+    * {i(ndarray) curve}
+      . input vector of points.
+      . can be contour from [contours].
+    Returns .
+    * {o(ndarray) rect}
+      . output rectangle in for of array.
+        | [x][y][w][h]
+      . where x - x coordinate of initial point.
+      .       y - y coordinate of initial point.
+      .       w - width of the rectangle.
+      .       h - height of the rectangle.
+
+  - rectangle() .
+  . Draws a simple, thick, or filled up-right rectangle on {image}.
+    Parameters .
+    * {i(ndarray) img}
+      . image to draw rectangle on.
+		* {i(Point) pt1}
+      . vertex of the rectangle.
+		* {i(Point) pt2}
+      . vertex of the rectangle opposite to {pt1}
+		* {i(color)  	color}
+      . rectangle color or brightness (grayscale image).
+		* {i(int) thickness = 1}
+      . thickness of lines that make up the rectangle.
+      . Negative values, like |FILLED|, mean that the function has to
+        draw a filled rectangle.
+		* {i(int) lineType = LINE_8}
+      . Type of the line.
+		* {i(int) shift = 0}
+      ? Number of fractional bits in the point coordinates.
+
+
+  - cvtColor() .
   . Used to convert an image from one color space to another.
     Parameters .
     * {i(ndarray) src}
@@ -36,7 +181,7 @@ Methods .
     * {o(ndarray) dst}
       . destination image.
 
-  - threshold .
+  - threshold() .
   . Applies a fixed-level [thresholding] to each array element.
     Parameters .
     * {i(ndarray) src}
@@ -58,7 +203,7 @@ Methods .
     * {o(ndarray) dst}
       . destination image.
 
-  - findContours [#1] .
+  - findContours() [#1] .
   . Finds [contours] in a binary image.
     Parameters .
     * {i(ndarray) image}
@@ -79,7 +224,7 @@ Methods .
       . Shows how various contours are linked to each other, their
         relation with other contours, Parent Child relation.
 
-  - drawContours .
+  - drawContours() .
   . Used to draw any shape provided you have its boundary points.
   . Draws contours outlines or filled contours.
     Parameters .
